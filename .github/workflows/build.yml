@@ -16,30 +16,22 @@ jobs:
       uses: actions/setup-java@v4
       with:
         java-version: '17'
-        distribution: 'temurin'
-    
-    - name: Setup Android SDK
-      run: |
-        mkdir -p $HOME/android-sdk/cmdline-tools
-        cd $HOME/android-sdk/cmdline-tools
-        wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
-        unzip -q cmdline-tools.zip
-        mv cmdline-tools latest
-        echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
-        echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-        yes | sdkmanager --licenses > /dev/null 2>&1
-        sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0" > /dev/null 2>&1
     
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.24.5'
     
+    - name: Install Android SDK
+      run: |
+        echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
+    
     - name: Get dependencies
       run: flutter pub get
     
     - name: Build debug APK
-      run: flutter build apk --debug
+      run: |
+        flutter build apk --debug 2>&1
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
