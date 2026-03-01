@@ -2,45 +2,37 @@
 
 Mobile app for ERPNext attendance, leave requests, and payroll.
 
-## Setup
+## Quick Start
 
-### Prerequisites
-- Flutter 3.x installed
-- Android SDK / Xcode (for iOS)
-
-### Installation
-
+### Build APK (Local)
 ```bash
-cd ess_app
 flutter pub get
-flutter run
+flutter build apk --debug
+# APK at: build/app/outputs/flutter-apk/app-debug.apk
 ```
+
+### Or Use GitHub Actions
+1. Generate a new token with `repo` AND `workflow` scopes
+2. Push to trigger auto-build
+3. Download APK from Actions tab
 
 ## Features
 
-### MVP (Phase 1)
 - ✅ Login with ERPNext credentials
 - ✅ View employee profile
-- ✅ Clock In with GPS location
-- ✅ Today's attendance status
+- ✅ Clock In with GPS
 - ✅ Leave request management
 - ✅ Payroll view
 - ✅ Attendance history
 
-### Future Features
-- Clock Out
-- Leave balance
-- Notifications
-- Offline mode
-
 ## Configuration
 
-Edit `lib/main.dart` → `AppConfig` class:
+Edit `lib/main.dart` → `AppConfig`:
 - `baseUrl` - Your ERPNext URL
 - `apiKey` - Your API Key
 - `apiSecret` - Your API Secret
 
-## API Endpoints Used
+## API Endpoints
 
 ```
 POST /api/method/login
@@ -50,19 +42,4 @@ GET  /api/resource/Attendance
 GET  /api/resource/Leave Type
 POST /api/resource/Leave Application
 GET  /api/resource/Salary Slip
-```
-
-## Screens
-
-1. **Login** - Email/password authentication
-2. **Home** - Dashboard with employee info, clock-in, quick actions
-3. **Leave** - Submit and view leave requests
-4. **Payroll** - View salary slips
-5. **Attendance History** - View past attendance
-
-## Project Structure
-
-```
-lib/
-  main.dart          # All screens in one file
 ```
